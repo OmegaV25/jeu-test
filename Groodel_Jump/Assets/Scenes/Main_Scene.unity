@@ -222,11 +222,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1796612511}
---- !u!1 &718290299 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4258091308660953557, guid: eac47db735f26414a9e10d73036b45a5, type: 3}
-  m_PrefabInstance: {fileID: 1343035294}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1343035294
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -281,6 +276,10 @@ PrefabInstance:
     - target: {fileID: 4258091308660953643, guid: eac47db735f26414a9e10d73036b45a5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7489780170022992372, guid: eac47db735f26414a9e10d73036b45a5, type: 3}
+      propertyPath: chance
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eac47db735f26414a9e10d73036b45a5, type: 3}
@@ -530,6 +529,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   size: {x: 10, y: 5}
   platformPrefab:
-  - {fileID: 718290299}
+  - {fileID: 4258091308660953557, guid: eac47db735f26414a9e10d73036b45a5, type: 3}
   - {fileID: 5957104561031150579, guid: 8b3c29363323f8a41960a775ebf07d92, type: 3}
-  probabilities: []

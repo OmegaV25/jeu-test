@@ -14,27 +14,24 @@ public class Spawner : MonoBehaviour
     Vector2 pos;
     Rectangle rec;
     public GameObject[] platformPrefab;
-    public float[] probabilities;
 
-
-    // Start is called before the first frame update
     void Start()
     {
-        rec.rectanlgeBottomDown = new Vector2(-size.x, -size.y) + new Vector2(0, transform.position.y + 5);
+        rec.rectanlgeBottomDown = new Vector2(-size.x, -size.y) + new Vector2(0, transform.position.y);
         rec.rectangleSize = new Vector2(size.x * 2, size.y * 2);
-        //pos = transform.position;
         Generate(20);
-        //pos = transform.position + Vector3.up * 10;
+        rec.rectanlgeBottomDown = new Vector2(-size.x, -size.y) + new Vector2(0, transform.position.y + 10);
+        Generate(20);
+        rec.rectanlgeBottomDown = new Vector2(-size.x, -size.y) + new Vector2(0, transform.position.y + 10);
+        Generate(20);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        rec.rectanlgeBottomDown = new Vector2(-size.x, -size.y) + new Vector2(0, transform.position.y + 5);
-        rec.rectangleSize = new Vector2(size.x * 2, size.y * 2);
-        if(pos.y + 10 <= transform.position.y)
+        rec.rectanlgeBottomDown = new Vector2(-size.x, -size.y) + new Vector2(0, transform.position.y + 10);
+        if(pos.y + 10 <= transform.position.y + 20)
         {
-            pos.y = transform.position.y;
+            pos.y = transform.position.y + 20;
             Generate(20);
         }
         DebugRec(rec);
@@ -58,17 +55,9 @@ public class Spawner : MonoBehaviour
         Debug.DrawLine(new Vector2(rectangle.rectanlgeBottomDown.x + rectangle.rectangleSize.x, rectangle.rectanlgeBottomDown.y + rectangle.rectangleSize.y), new Vector2(rectangle.rectanlgeBottomDown.x + rectangle.rectangleSize.x, rectangle.rectanlgeBottomDown.y), Color.green);
         Debug.DrawLine(new Vector2(rectangle.rectanlgeBottomDown.x + rectangle.rectangleSize.x, rectangle.rectanlgeBottomDown.y + rectangle.rectangleSize.y), new Vector2(rectangle.rectanlgeBottomDown.x, rectangle.rectanlgeBottomDown.y + rectangle.rectangleSize.y), Color.green);
     }
-
     int RandomPlatform()
     {
-        int[] rand;
-        for (int i = 0; i < platformPrefab.Length; i++)
-        {
-            for (int i = 0; i < length; i++)
-            {
-
-            }
-        }
+        int[] rand = {0,0,0,0,0,0};
         return rand[Random.Range(0, rand.Length)];
     }
 }
