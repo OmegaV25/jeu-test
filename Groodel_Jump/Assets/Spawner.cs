@@ -13,26 +13,26 @@ public class Spawner : MonoBehaviour
     public Vector2 size;
     Vector2 pos;
     Rectangle rec;
-    public GameObject platformPrefab;
+    public GameObject[] platformPrefab;
 
-
-    // Start is called before the first frame update
     void Start()
     {
-        pos = transform.position;
-        Generate(5);
-        transform.position = Vector2.up * 10f;
+        rec.rectanlgeBottomDown = new Vector2(-size.x, -size.y) + new Vector2(0, transform.position.y);
+        rec.rectangleSize = new Vector2(size.x * 2, size.y * 2);
+        Generate(20);
+        rec.rectanlgeBottomDown = new Vector2(-size.x, -size.y) + new Vector2(0, transform.position.y + 10);
+        Generate(20);
+        rec.rectanlgeBottomDown = new Vector2(-size.x, -size.y) + new Vector2(0, transform.position.y + 10);
+        Generate(20);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        rec.rectanlgeBottomDown = new Vector2(-size.x, -size.y) + new Vector2(transform.position.x, transform.position.y + 10);
-        rec.rectangleSize = new Vector2(size.x * 2, size.y * 2);
-        if(pos.y + 10 <= transform.position.y)
+        rec.rectanlgeBottomDown = new Vector2(-size.x, -size.y) + new Vector2(0, transform.position.y + 10);
+        if(pos.y + 10 <= transform.position.y + 20)
         {
-            pos.y = transform.position.y;
-            Generate(5);
+            pos.y = transform.position.y + 20;
+            Generate(20);
         }
         DebugRec(rec);
     }
@@ -43,8 +43,8 @@ public class Spawner : MonoBehaviour
         {
             float randomX = Random.Range(rec.rectanlgeBottomDown.x, rec.rectanlgeBottomDown.x + rec.rectangleSize.x);
             float randomY = Random.Range(rec.rectanlgeBottomDown.y, rec.rectanlgeBottomDown.y + rec.rectangleSize.y);
-
-            Instantiate(platformPrefab, new Vector3(randomX, randomY, 0f), platformPrefab.transform.rotation);
+            GameObject platform = platformPrefab[RandomPlatform()];
+            Instantiate(platform, new Vector3(randomX, randomY, 0f), platform.transform.rotation);
         }
     }
 
@@ -54,5 +54,10 @@ public class Spawner : MonoBehaviour
         Debug.DrawLine(rectangle.rectanlgeBottomDown, new Vector2(rectangle.rectanlgeBottomDown.x, rectangle.rectanlgeBottomDown.y + rectangle.rectangleSize.y), Color.green);
         Debug.DrawLine(new Vector2(rectangle.rectanlgeBottomDown.x + rectangle.rectangleSize.x, rectangle.rectanlgeBottomDown.y + rectangle.rectangleSize.y), new Vector2(rectangle.rectanlgeBottomDown.x + rectangle.rectangleSize.x, rectangle.rectanlgeBottomDown.y), Color.green);
         Debug.DrawLine(new Vector2(rectangle.rectanlgeBottomDown.x + rectangle.rectangleSize.x, rectangle.rectanlgeBottomDown.y + rectangle.rectangleSize.y), new Vector2(rectangle.rectanlgeBottomDown.x, rectangle.rectanlgeBottomDown.y + rectangle.rectangleSize.y), Color.green);
+    }
+    int RandomPlatform()
+    {
+        int[] rand = {0,0,0,0,0,0,1};
+        return rand[Random.Range(0, rand.Length)];
     }
 }
