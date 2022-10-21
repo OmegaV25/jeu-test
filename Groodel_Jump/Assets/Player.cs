@@ -37,14 +37,4 @@ public class Player : MonoBehaviour
     {
         rb.velocity = new Vector2(movement, rb.velocity.y);
     }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        GetComponent<Animator>().SetBool("IsJumping",true);
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        GetComponent<Animator>().SetBool("IsJumping", false);
-    }
 }
