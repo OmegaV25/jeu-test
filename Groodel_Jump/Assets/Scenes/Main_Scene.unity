@@ -517,6 +517,7 @@ MonoBehaviour:
   - {fileID: 4258091308660953557, guid: ce08d0dd33191d04c82f641c99f6b6f2, type: 3}
   - {fileID: 5957104561031150579, guid: 8b3c29363323f8a41960a775ebf07d92, type: 3}
   - {fileID: 5265286602416912074, guid: 1adde2febaa58d8478136ce122ee74af, type: 3}
+  - {fileID: 8629719965562382140, guid: 2f25ea0acbee15141b750fd6e51dd3f8, type: 3}
   spawnNumber: 0
 --- !u!95 &1796612516
 Animator:
