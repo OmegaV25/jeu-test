@@ -35,8 +35,16 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector2 velocity = rb.velocity;
-        velocity.x = movement;
-        rb.velocity = velocity;
+        rb.velocity = new Vector2(movement, rb.velocity.y);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        GetComponent<Animator>().SetBool("IsJumping",true);
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        GetComponent<Animator>().SetBool("IsJumping", false);
     }
 }

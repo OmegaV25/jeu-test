@@ -17,6 +17,7 @@ public class Platform : MonoBehaviour
                 velocity.y = jumpForce;
                 rb.velocity = velocity;
             }
+            collision.gameObject.GetComponent<Animator>().SetTrigger("Jump");
         }
 
     }

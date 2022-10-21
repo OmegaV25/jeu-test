@@ -14,16 +14,20 @@ public class Spawner : MonoBehaviour
     Vector2 pos;
     Rectangle rec;
     public GameObject[] platformPrefab;
+    public int spawnNumber;
+    int num;
 
     void Start()
     {
+        num = 50;
+        spawnNumber = 20;
         rec.rectanlgeBottomDown = new Vector2(-size.x, -size.y) + new Vector2(0, transform.position.y);
         rec.rectangleSize = new Vector2(size.x * 2, size.y * 2);
-        Generate(20);
+        Generate(spawnNumber);
         rec.rectanlgeBottomDown = new Vector2(-size.x, -size.y) + new Vector2(0, transform.position.y + 10);
-        Generate(20);
+        Generate(spawnNumber);
         rec.rectanlgeBottomDown = new Vector2(-size.x, -size.y) + new Vector2(0, transform.position.y + 10);
-        Generate(20);
+        Generate(spawnNumber);
     }
 
     void Update()
@@ -32,7 +36,12 @@ public class Spawner : MonoBehaviour
         if(pos.y + 10 <= transform.position.y + 20)
         {
             pos.y = transform.position.y + 20;
-            Generate(20);
+            spawnNumber -= (int) (transform.position.y / num);
+            if((int)(transform.position.y / num) == 1)
+            {
+                num += 50;
+            }
+            Generate(spawnNumber);
         }
         DebugRec(rec);
     }
