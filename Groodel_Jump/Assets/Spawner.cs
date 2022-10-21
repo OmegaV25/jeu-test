@@ -57,7 +57,7 @@ public class Spawner : MonoBehaviour
     }
     int RandomPlatform()
     {
-        int[] rand = {0,0,0,0,0,0};
+        int[] rand = {0,0,0,0,0,0,1};
         return rand[Random.Range(0, rand.Length)];
     }
 }
