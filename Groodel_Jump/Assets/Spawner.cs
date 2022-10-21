@@ -10,49 +10,63 @@ public struct Rectangle
 
 public class Spawner : MonoBehaviour
 {
-    public Transform pos;
-    public Color color;
+    public Vector2 size;
+    Vector2 pos;
     Rectangle rec;
-    public Vector2 originalPos;
-    Vector2 nextPos;
-    public GameObject platformPrefab;
-    public bool test;
+    public GameObject[] platformPrefab;
+    public int spawnNumber;
+    int num;
 
-
-    // Start is called before the first frame update
     void Start()
     {
-        nextPos = originalPos;
-        //InvokeRepeating("Test",1f,0.2f);
-        color = Color.white;
+        num = 50;
+        spawnNumber = 20;
+        rec.rectanlgeBottomDown = new Vector2(-size.x, -size.y) + new Vector2(0, transform.position.y);
+        rec.rectangleSize = new Vector2(size.x * 2, size.y * 2);
+        Generate(spawnNumber);
+        rec.rectanlgeBottomDown = new Vector2(-size.x, -size.y) + new Vector2(0, transform.position.y + 10);
+        Generate(spawnNumber);
+        rec.rectanlgeBottomDown = new Vector2(-size.x, -size.y) + new Vector2(0, transform.position.y + 10);
+        Generate(spawnNumber);
     }
 
-    // Update is called once per frame
     void Update()
     {
-
-        if(test)
+        rec.rectanlgeBottomDown = new Vector2(-size.x, -size.y) + new Vector2(0, transform.position.y + 10);
+        if(pos.y + 10 <= transform.position.y + 20)
         {
-            test = false;
-            rec.rectanlgeBottomDown = new Vector2(-5,-5) + new Vector2(pos.position.x, pos.position.y);
-            rec.rectangleSize = Vector2.one * 10;
-            Generate(rec, 5);
+            pos.y = transform.position.y + 20;
+            spawnNumber -= (int) (transform.position.y / num);
+            if((int)(transform.position.y / num) == 1)
+            {
+                num += 50;
+            }
+            Generate(spawnNumber);
         }
+        DebugRec(rec);
     }
 
-    void Generate(Rectangle rectangle,int num)//rectangle is random location inside the coord and nm the number of GameObject to generate
+    void Generate(int num)//rectangle is random location inside the coord and nm the number of GameObject to generate
     {
         for (int i = 0; i < num; i++)
         {
-            float randomX = Random.Range(rectangle.rectanlgeBottomDown.x, rectangle.rectanlgeBottomDown.x + rectangle.rectangleSize.x);
-            float randomY = Random.Range(rectangle.rectanlgeBottomDown.y, rectangle.rectanlgeBottomDown.y + rectangle.rectangleSize.y);
-
-            Instantiate(platformPrefab, new Vector3(randomX, randomY, 0f), platformPrefab.transform.rotation);
+            float randomX = Random.Range(rec.rectanlgeBottomDown.x, rec.rectanlgeBottomDown.x + rec.rectangleSize.x);
+            float randomY = Random.Range(rec.rectanlgeBottomDown.y, rec.rectanlgeBottomDown.y + rec.rectangleSize.y);
+            GameObject platform = platformPrefab[RandomPlatform()];
+            Instantiate(platform, new Vector3(randomX, randomY, 0f), platform.transform.rotation);
         }
     }
 
-    void Test()
+    void DebugRec(Rectangle rectangle)
     {
-        test = true;
-    }   
+        Debug.DrawLine(rectangle.rectanlgeBottomDown, new Vector2(rectangle.rectanlgeBottomDown.x + rectangle.rectangleSize.x, rectangle.rectanlgeBottomDown.y),Color.green);
+        Debug.DrawLine(rectangle.rectanlgeBottomDown, new Vector2(rectangle.rectanlgeBottomDown.x, rectangle.rectanlgeBottomDown.y + rectangle.rectangleSize.y), Color.green);
+        Debug.DrawLine(new Vector2(rectangle.rectanlgeBottomDown.x + rectangle.rectangleSize.x, rectangle.rectanlgeBottomDown.y + rectangle.rectangleSize.y), new Vector2(rectangle.rectanlgeBottomDown.x + rectangle.rectangleSize.x, rectangle.rectanlgeBottomDown.y), Color.green);
+        Debug.DrawLine(new Vector2(rectangle.rectanlgeBottomDown.x + rectangle.rectangleSize.x, rectangle.rectanlgeBottomDown.y + rectangle.rectangleSize.y), new Vector2(rectangle.rectanlgeBottomDown.x, rectangle.rectanlgeBottomDown.y + rectangle.rectangleSize.y), Color.green);
+    }
+    int RandomPlatform()
+    {
+        int[] rand = {0,0,0,0,0, 0, 0, 0, 0, 0, 0, 0,0, 0, 0, 0, 0,0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,1, 1, 1, 1, 1, 1, 1, 1, 1, 2,3,3,3};
+        return rand[Random.Range(0, rand.Length)];
+    }
 }
